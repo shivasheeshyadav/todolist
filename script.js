@@ -45,6 +45,7 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
+		document.forms['form1'].reset();
 	},
 
 	deleteItem: function(item) {
@@ -56,6 +57,7 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
+		document.forms['form1'].reset();
 	},
 
 	changeItem: function(oldVal, newVal) {
@@ -67,6 +69,7 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
+		document.forms['form1'].reset();
 	},
 
 	setCategory: function(item) {
@@ -74,7 +77,7 @@ var todoList = {
 			for (j in this.items) { //Go through each item in todoList
 				if (this.items[j].val == item) { //If item has a match, set category for it to chosen args
 					if (this.items[j].categories.indexOf(arguments[i]) != -1) {
-						console.log("Selected item already has category: " + arguments[i]);
+						document.getElementById("display").innerHTML = ("Selected item already has category: " + arguments[i]);
 					}
 					else {
 						this.items[j].categories.push(arguments[i]);
@@ -89,23 +92,31 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
+		document.forms['form1'].reset();
 	},
 
 	showList: function() {
+		document.getElementById("display").innerHTML = "";
 		for (i in this.items) {
-			console.log("- " + this.items[i].val);
+			document.getElementById("display").innerHTML += ("- " + this.items[i].val + '<br>');
 		}
 	},
 
 	showListByCategory: function() {
+		document.getElementById("display").innerHTML = "";
 		for (i in this.categories) { //Go through categories
-			console.log('===== ' + this.categories[i].toUpperCase() + ' ====='); //Print category heading-style
+			document.getElementById("display").innerHTML += ('===== ' + this.categories[i].toUpperCase() + ' =====' + '<br>'); //Print category heading-style
 			for (j in this.items) { //Search items for matching category
 				if (this.items[j].categories.indexOf(this.categories[i]) != -1) {
-					console.log('- ' + this.items[j].val);
+					document.getElementById("display").innerHTML += ('- ' + this.items[j].val + '<br>');
 				}
 			}
 		}
+	},
+
+	//Clears the Display Section
+	clear: function() {
+		document.getElementById("display").innerHTML = "";
 	}
 };
 
