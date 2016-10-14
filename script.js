@@ -2,6 +2,11 @@ var todoList = {
 	items: [],
 	categories: ['default'],
 
+	//Reset the form fields
+	resetForm: function() {
+		document.forms['form1'].reset();
+	},
+
 
 	// Store data in local storage for later retrieval
 	storeData: function() {
@@ -45,7 +50,7 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
-		document.forms['form1'].reset();
+		this.resetForm();
 	},
 
 	deleteItem: function(item) {
@@ -57,7 +62,7 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
-		document.forms['form1'].reset();
+		this.resetForm();
 	},
 
 	changeItem: function(oldVal, newVal) {
@@ -69,7 +74,7 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
-		document.forms['form1'].reset();
+		this.resetForm();
 	},
 
 	setCategory: function(item) {
@@ -77,6 +82,7 @@ var todoList = {
 			for (j in this.items) { //Go through each item in todoList
 				if (this.items[j].val == item) { //If item has a match, set category for it to chosen args
 					if (this.items[j].categories.indexOf(arguments[i]) != -1) {
+						console.log("Selected item already has category: " + arguments[i]);
 						document.getElementById("display").innerHTML = ("Selected item already has category: " + arguments[i]);
 					}
 					else {
@@ -92,12 +98,13 @@ var todoList = {
 
 		// Store data in local storage
 		this.storeData();
-		document.forms['form1'].reset();
+		this.resetForm();
 	},
 
 	showList: function() {
 		document.getElementById("display").innerHTML = "";
 		for (i in this.items) {
+			console.log("- " + this.items[i].val);
 			document.getElementById("display").innerHTML += ("- " + this.items[i].val + '<br>');
 		}
 	},
@@ -105,9 +112,12 @@ var todoList = {
 	showListByCategory: function() {
 		document.getElementById("display").innerHTML = "";
 		for (i in this.categories) { //Go through categories
-			document.getElementById("display").innerHTML += ('===== ' + this.categories[i].toUpperCase() + ' =====' + '<br>'); //Print category heading-style
+			//Print category heading-style
+			console.log('===== ' + this.categories[i].toUpperCase() + ' =====');
+			document.getElementById("display").innerHTML += ('===== ' + this.categories[i].toUpperCase() + ' =====' + '<br>'); 
 			for (j in this.items) { //Search items for matching category
 				if (this.items[j].categories.indexOf(this.categories[i]) != -1) {
+					console.log('- ' + this.items[j].val);
 					document.getElementById("display").innerHTML += ('- ' + this.items[j].val + '<br>');
 				}
 			}
